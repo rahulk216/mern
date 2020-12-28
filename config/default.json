@@ -1,0 +1,6 @@
+{
+    "mongoURI" : "mongodb+srv://rahul216:rahul216@cluster0.cu1ws.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    "jwtsecret" : "mySecretToken",
+    "githubclientid" : "7a6c39b3ca47b62aa6d2",
+    "githubsecret": "86456f4c51aea8ef6fbae9abc69457351b83b0ef"
+}
