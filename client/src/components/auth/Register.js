@@ -1,7 +1,10 @@
 import React,{Fragment,useState} from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import {Link }from 'react-router-dom';
+import { setAlert } from '../../actions/alert';
+import PropTypes from 'prop-types'
 
-const Register = () => {
+const Register = (props,register) => {
     const [formData, setformData] = useState({
         name:'',
         email:'',
@@ -14,30 +17,11 @@ const Register = () => {
     const onSubmit =async e =>{
         e.preventDefault();
         if (password!==password2) {
-            console.log('password dont match')
+            props.setAlert('password dont match','danger');
         }
         else
         {
-           const newUser={
-               name,
-               email,
-               password
-           }
-           console.log(newUser)
-           try {
-               const config = {
-                   headers: {
-                       'Content-Type': 'application/json'
-                   }
-               }
-               const body = JSON.stringify(newUser);
-               console.log(body)
-               const res=await axios.post('/api/users', body, config);
-               console.log(res.data)
-           } catch (error) {
-               console.log('error kanro');
-               console.log(error.response.data)
-           }
+          register({ name, email, password});
         }
     };
     return (
@@ -92,10 +76,14 @@ const Register = () => {
                 <input type="submit" className="btn btn-primary" value="Register" />
             </form>
             <p className="my-1">
-                Already have an account? <a href="login.html">Sign In</a>
+                Already have an account? <Link to="/Login">Sign In</Link>
             </p>
       
         </Fragment>
     )
 }
-export default Register;
+Register.propTypes = {
+    setAlert: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired,
+}
+export default connect( null ,{ setAlert })(Register);
