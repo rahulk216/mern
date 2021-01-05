@@ -15,9 +15,10 @@ const Login = (props) => {
     const {email,password}=formData;
 
     const onSubmit =async e =>{
+        
         e.preventDefault();
-            console.log('loggin in')
-       props.login(email,password);
+        console.log('loggin in')
+        props.login(email,password);
         
     };
 
