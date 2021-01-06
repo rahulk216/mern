@@ -28,7 +28,7 @@ const EditProfile = ({ profile:{ profile,loading } ,createProfile, getCurrentPro
                     website: loading || !profile.website ? '' : profile.website,
                     location: loading || !profile.location ? '' : profile.location,
                     status: loading || !profile.status ? '' : profile.status,
-                    skills: loading || !profile.skills ? '' : profile.skills,
+                    skills: loading || !profile.skills ? '' : profile.skills.join(','),
                     githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
                     bio: loading || !profile.bio ? '' : profile.bio,
                     twitter: loading || !profile.social ? '' : profile.social.twitter,
@@ -170,7 +170,7 @@ const EditProfile = ({ profile:{ profile,loading } ,createProfile, getCurrentPro
                     }
                     
                     <input type="submit" className="btn btn-primary my-1" />
-                    <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
+                    <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
                 </form>
         </Fragment>
     )
@@ -184,4 +184,4 @@ EditProfile.propTypes = {
 const mapStateToProps = state => ({
     profile: state.profile
 });
-export default connect(mapStateToProps,{createProfile,getCurrentProfile})(withRouter(EditProfile))
+export default connect(mapStateToProps,{ createProfile, getCurrentProfile })(withRouter(EditProfile))
