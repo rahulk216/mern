@@ -5,6 +5,7 @@ const request=require('request');
 const config = require('config');
 const Profile= require('../../models/Profile');
 const User= require('../../models/User');
+const Post= require('../../models/Post');
 const auth= require('../../middleware/auth');
 
 //api/profile
@@ -118,7 +119,7 @@ router.get('/user/:user_id',async(req,res)=>{
 
     try {
         const profile=await Profile.findOne({ user: req.params.user_id }).populate('user',['name','avatar']);
-        console.log(profile)
+       
         if(!profile)
         {
             return res.status(400).json({msg:"profile not found "})
@@ -142,6 +143,8 @@ router.get('/user/:user_id',async(req,res)=>{
 router.delete('/',auth,async(req,res)=>{
 
     try {
+        //remove user posts
+        await Post.deleteMany({user: req.user.id})
         //removes profile
         await Profile.findOneAndRemove({user: req.user.id});
         //removes user
