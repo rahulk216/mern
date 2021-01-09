@@ -68,10 +68,11 @@ const Profile = ({ match, profile: { profile, loading }, auth, getProfileById })
                             ) : ( <h4>No experience added yet</h4> )
                         }
                     </div>
+                    
                     {   
                         profile.githubusername && 
                         (
-                        <ProfileGithub username={profile.githubusername}/>
+                            <ProfileGithub username={profile.githubusername}/>
                         )
                         
                     }
