@@ -22,14 +22,14 @@ export const getPosts = () => async dispatch => {
 
 }
 
-export const addLike = postId => async dispatch => {
+export const addLike = postid => async dispatch => {
 
     try {
-        const res =await axios.put(`/api/post/like/${postId}`);
+        const res =await axios.put(`/api/post/like/${postid}`);
         console.log(res.data)
         dispatch({
             type: UPDATE_LIKES,
-            payload: { postId, likes: res.data }
+            payload: { postid, likes: res.data }
         })
     } catch (err) {
          dispatch({
@@ -40,14 +40,14 @@ export const addLike = postId => async dispatch => {
 
 }
 
-export const removeLike = postId => async dispatch => {
+export const removeLike = postid => async dispatch => {
 
     try {
-        const res =await axios.put(`/api/post/unlike/${postId}`);
+        const res =await axios.put(`/api/post/unlike/${postid}`);
         console.log(res.data)
         dispatch({
             type: UPDATE_LIKES,
-            payload:  { postId, likes: res.data }
+            payload:  { postid, likes: res.data }
         })
     } catch (err) {
          dispatch({

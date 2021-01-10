@@ -32,13 +32,13 @@ const PostItem = ({
                         <p class="post-date">
                              <Moment format='YYYY/MM/DD'>{date}</Moment>
                         </p>
-                        <button onClick={ e => addLike(_id) } type="button" class="btn btn-light">
+                        <button onClick={ () => addLike(_id) } type="button" class="btn btn-light">
                         <i class="fas fa-thumbs-up"></i>{' '}
                         <span>{  likes.length > 0 && (
                                         <span class='comment-count'>{likes.length}</span>
                                     ) } </span>
                         </button>
-                        <button onClick={ e => removeLike(_id) } type="button" class="btn btn-light">
+                        <button onClick={ () => removeLike(_id) } type="button" class="btn btn-light">
                         <i class="fas fa-thumbs-down"></i>
                         </button>
                         <Link to={`/post/${_id}`} class="btn btn-primary">
@@ -71,8 +71,7 @@ const PostItem = ({
 PostItem.propTypes = {
     post: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
-    addLike: PropTypes.func.isRequired,
-    removeLike: PropTypes.func.isRequired,
+    
 }
 const mapStateToProps = state => ({
     auth:state.auth
