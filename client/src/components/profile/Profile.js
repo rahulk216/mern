@@ -41,7 +41,7 @@ const Profile = ({ match, profile: { profile, loading }, auth, getProfileById })
                                 <Fragment>
                                     {
                                         profile.experience.map(experience => (
-                                        <ProfileExperience key={experience._id} experience={experience}/>    
+                                            <ProfileExperience key={experience._id} experience={experience}/>    
                                         ))
                                     }
                                     

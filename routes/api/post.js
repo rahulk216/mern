@@ -79,16 +79,20 @@ router.get('/:user_id',auth,async(req,res)=>{
 
 router.delete('/:post_id',auth,async(req,res)=>{
     try {
-        const post= await Post.findById(req.params.post_id);
-        //only user can delete post
-        if(!post){
-            return res.status(400).json({msg:"posts not found"});
-        }
-        if(post.user.toString()!== req.user.id){
-            return res.status(401).json({msg:"user not authorized"})
-        }
-        await post.remove()
-        res.send("post removed")
+         const post = await Post.findById(req.params.post_id);
+
+    if (!post) {
+      return res.status(404).json({ msg: 'Post not found' });
+    }
+
+    // Check user
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'User not authorized' });
+    }
+
+    await post.remove();
+
+    res.json({ msg: 'Post removed' });
     } catch (error) {
         console.log(error.message);
          if(error.kind=='ObjectId'){
@@ -116,25 +120,28 @@ router.put('/like/:id',auth,async(req,res)=>{
 });
 
 //PUT unlike 
-router.put('/unlike/:id',auth,async(req,res)=>{
-     try {
-         const post=await Post.findById(req.params.id);
-         if(post.likes.filter(like => like.user.toString()===req.user.id).length===0){
-             return res.status(400).json({msg:"post not liked yet"});
-         }
-         const removeIndex=post.likes
-            .map(like=>like.user.toString())
-            .indexOf(req.user.id);
-
-        post.likes.splice(removeIndex,1);
-        await post.save();
-         res.json({msg:"unliked"});
-     } catch (error) {
-         console.log(error.message);
-         res.status(500).send('server error');
-     }
+router.put('/unlike/:id', auth,  async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+ 
+    // Check if the post has not yet been liked
+    if (!post.likes.some((like) => like.user.toString() === req.user.id)) {
+      return res.status(400).json({ msg: 'Post has not yet been liked' });
+    }
+ 
+    // remove the like
+    post.likes = post.likes.filter(
+      ({ user }) => user.toString() !== req.user.id
+    );
+ 
+    await post.save();
+ 
+    return res.json(post.likes);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
-
 //PUT add comment
 
 router.post('/comment/:id',[auth,

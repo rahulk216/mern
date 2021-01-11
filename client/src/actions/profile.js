@@ -3,9 +3,7 @@ import { setAlert } from './alert';
 import { GET_PROFILE,PROFILE_ERROR,UPDATE_PROFILE ,CLEAR_PROFILE,ACCOUNT_DELETED,GET_PROFILES,GET_REPOS} from './types';
 
 export const getCurrentProfile = () =>async dispatch =>{
-    dispatch({
-        type: CLEAR_PROFILE,
-    })
+    
     try {
         const res = await axios.get('api/profile/me');
 
