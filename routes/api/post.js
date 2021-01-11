@@ -58,9 +58,10 @@ router.get('/',auth,async(req,res)=>{
 });
 
 //GET posts based on user ID
-router.get('/:user_id',auth,async(req,res)=>{
+router.get('/:_id',auth,async(req,res)=>{
     try {
-        const post= await Post.findOne({user:req.params.user_id});
+        const post = await Post.findById(req.params._id);
+
         
         if(!post){
             return res.status(400).json({msg:"posts not found"});
