@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { GET_PROFILE,PROFILE_ERROR,UPDATE_PROFILE ,CLEAR_PROFILE,ACCOUNT_DELETED,GET_PROFILES,GET_REPOS} from './types';
+import { GET_PROFILE,PROFILE_ERROR,UPDATE_PROFILE ,CLEAR_PROFILE,ACCOUNT_DELETED,GET_PROFILES,GET_REPOS,NO_REPOS} from './types';
 
 export const getCurrentProfile = () =>async dispatch =>{
     
@@ -72,7 +72,7 @@ export const getGithubRepos = username =>async dispatch =>{
         });
     } catch (err) {
         dispatch({
-            type: PROFILE_ERROR,
+            type: NO_REPOS,
             payload: { msg:err.response.statusText, status: err.response.status }
         })
     }
